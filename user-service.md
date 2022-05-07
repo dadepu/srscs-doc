@@ -10,13 +10,17 @@ navigation: 5
 
 Der User-Service ist für die Verwaltung von Benutzern und allen mit diesen verbundenen Daten zuständig.
 
+<br/>
+
 ## Verwaltung
 
 **Github**  
 https://github.com/dadepu/srscs-user-service.git
 
-**Docker Image**
+**Docker Image**  
 https://hub.docker.com/repository/docker/dadepu/srscs_user
+
+<br/>
 
 ## Abhängigkeiten
 
@@ -42,6 +46,8 @@ https://hub.docker.com/repository/docker/dadepu/srscs_user
 
 Der Service hat **keine** Abhängigkeiten innerhalb der Anwendung zu anderen Services.
 
+<br/>
+
 ## Containerization
 
 Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine automatisierte Build-Pipeline existiert zum derzeiten Zeitpunkt noch nicht.
@@ -52,12 +58,16 @@ Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine 
 **Docker-Hub Image**  
 [https://hub.docker.com/repository/docker/dadepu/srscs_user](https://hub.docker.com/repository/docker/dadepu/srscs_user)
 
+<br/>
+<br/>
 
 # Details
 
 ## Fachliche Service-Beschreibung
 
 Der User-Service ist für die Verwaltung von Benutzern innerhalb der Anwendung zuständig. Es lassen sich neue Benutzer anlegen, abrufen und Bestehende deaktivieren. Die bestehenden Endpunkte und Events können den beiden APIs entnommen werden.
+
+<br/>
 
 ## Implementierungs Details
 
@@ -71,6 +81,8 @@ Benutzer werden bei einem Löschvorgang lediglich deaktiviert, um die Integritä
 beeinflussen.  
 Mögliche wäre auch ein Szenario aus datenschutzrechtlichen Gründen, in dem alle nutzer-relevanten 
 Informationen, bis auf die `user-id`, gelöscht werden.
+
+<br/>
 
 ## Datenbankschema
 
