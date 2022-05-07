@@ -39,7 +39,7 @@ Der User-Service ist für die Verwaltung von Benutzern und allen mit diesen verb
 
 #### Infrastruktur
 
-- MariaDB *10.8.2-rc* [https://hub.docker.com/_/mariadb](https://hub.docker.com/_/mariadb)
+- MariaDB *10.8.2-rc* https://hub.docker.com/_/mariadb
 - Confluence-Kafka *5.2.5* [https://hub.docker.com/r/confluentinc/cp-kafka](https://hub.docker.com/r/confluentinc/cp-kafka)
 
 #### Services
@@ -89,3 +89,7 @@ Informationen, bis auf die `user-id`, gelöscht werden.
 #### Erstellung
 
 Das Datenbankschema wird von Spring automatisch durch JPA Annotationen erstellt.
+
+<br/>
+<br/>
+<br/>
