@@ -25,7 +25,9 @@ In der Root-Directory des Repositories befinden sich die beiden Docker-Compose-D
 Im ersten Schritt müssen die Services der Umgebung gestartet werden. Das kann über den folgenden Befehl im Terminal 
 oder in IntelliJ erfolgen:
 
-`docker-compose -f ... up -d`
+```
+docker-compose -f ... up -d
+```
 
 **Datenbankschema erstellen**
 Das Datenbankschema für MariaDB und MongoDB wird durch die jeweiligen Spring Services initialisiert. Für Cassandra muss das Schema über ein CQL Skript erstellt werden. Die Datei befindet sich im gleichen Ordner unter dem Namen `cassandra-build.cql`.
@@ -43,20 +45,21 @@ Die Login Daten werden als Umgebungsvariablen über das Compose-File gesetzt und
 Wenn die Verbindung erfolgreich hergestellt wurde, kann `cassandra-build.cql` über IntelliJ (oder DataGrip) ausgeführt werden. Wenn dieser Schritt erfolgreich war, müsste Cassandra die initialisierten Tabellen aufführen können.
 
 **Starten der Services**  
-Die Services der Anwendung werden nach dem gleichen Ablauf, wie der Umgebung, gestartet. `docker-compose -f ... up -d`
+Die Services der Anwendung werden nach dem gleichen Ablauf, wie der Umgebung, gestartet. 
+```
+docker-compose -f ... up -d
+```
 
 <br/>
 
 ### Prüfen der Umgebung
 
 **MariaDB**  
-Um zu prüfen, ob sich eine Verbindung zu MariaDB herstellt lässt, kann phpMyAdmin aufgerufen werden.
-
+Um zu prüfen, ob sich eine Verbindung zu MariaDB herstellt lässt, kann phpMyAdmin aufgerufen werden.  
 `http://localhost:8100`
 
 **MongoDB**  
-MongoDB lässt sich durch MongoExpress unter folgender Adresse prüfen
-
+MongoDB lässt sich durch MongoExpress unter folgender Adresse prüfen  
 `http://localhost:8081`
 
 **Cassandra**  
