@@ -97,7 +97,9 @@ Für einen Abgleich zwischen den Decks werden Änderungen in diesen erfasst und 
 
 #### Version einer Karte
 
-Wird durch einen Benutzer in eine Kollaborations-Deck eine neue Karte erstellt, wird diese als Kopie-Vorlage für die anderen Decks verwendet. Für $n$ Nutzer mit jeweils eigenen Decks ergeben sich daraus $n$ unterschiedliche Karten mit jeweils individuellen IDs.
+Wird durch einen Benutzer in eine Kollaborations-Deck eine neue Karte erstellt, wird diese als Kopie-Vorlage für die 
+anderen Decks verwendet. Für n Nutzer mit jeweils eigenen Decks ergeben sich daraus n unterschiedliche Karten mit 
+jeweils individuellen IDs.
 
 Ändert ein beliebiger Teilnehmer diese zuvor erstellte Karte, muss diese Änderung an die anderen Teilnehmer weitergegeben werden. Um die entsprechenden Karten mit der neuen Version überschreiben zu können, müssen die IDs jedoch bekannt sein.
 
@@ -113,7 +115,7 @@ Cassandra
 
 #### Erstellung
 
-Das Datenbankschema wird nicht automatisch erstellt, sondern muss über das collab-service-cassandra.cql File erstellt werden.
+Das Datenbankschema wird nicht automatisch erstellt, sondern muss über das `collab-service-cassandra.cql` File erstellt werden.
 
 #### Query First
 
@@ -152,7 +154,8 @@ kein Query
 Wurde ein neues Deck erstellt muss geprüft werden, ob die Erstellung durch den Collaboration-Service veranlasst wurde und wenn ja, zu welcher Kollaboration und welchem Nutzer es gehört.
 Wenn der Collaboration-Service ein Kommando schickt zum Erstellen eines Decks, enthält dieses Kommando eine 
 `correlation-id`. Das Event kann nach dem Erstellen dann über diese ID zugeordnet werden.  
-Enthält das Event keine ID oder ist die ID nicht bekannt, ist das Event für den Collaboration-Service nicht relevant.  `Find Collaboration by correlation-id`
+Enthält das Event keine ID oder ist die ID nicht bekannt, ist das Event für den Collaboration-Service nicht relevant.
+ `Find Collaboration by correlation-id`
 
 **EVENT: Card created**  
 Vergleichbar mit dem Erstellungsprozess eines Decks. Es wird geprüft, ob die Karte auf einen Befehl hin erstellt 
