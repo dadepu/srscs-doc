@@ -34,10 +34,8 @@ Das Datenbankschema für MariaDB und MongoDB wird durch die jeweiligen Spring Se
 
 Um das Schema zu laden, muss über IntelliJ (oder DataGrip) eine Verbindung zu Cassandra hergestellt werden.
 
-`Address:`
-
-`User:`
-
+`Address:`  
+`User:`  
 `Password:`
 
 Die Login Daten werden als Umgebungsvariablen über das Compose-File gesetzt und können angepasst werden.
