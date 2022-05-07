@@ -39,8 +39,8 @@ https://hub.docker.com/repository/docker/dadepu/srscs_user
 
 ### Infrastruktur
 
-- MariaDB *10.8.2-rc* ([https://hub.docker.com/_/mariadb](https://hub.docker.com/_/mariadb))
-- Confluence-Kafka *5.2.5* ([https://hub.docker.com/r/confluentinc/cp-kafka](https://hub.docker.com/r/confluentinc/cp-kafka))
+- MariaDB *10.8.2-rc* [https://hub.docker.com/_/mariadb](https://hub.docker.com/_/mariadb)
+- Confluence-Kafka *5.2.5* [https://hub.docker.com/r/confluentinc/cp-kafka](https://hub.docker.com/r/confluentinc/cp-kafka)
 
 ### Services
 
@@ -61,21 +61,21 @@ Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine 
 <br/>
 <br/>
 
-# Details
+## Details
 
-## Fachliche Service-Beschreibung
+### Fachliche Service-Beschreibung
 
 Der User-Service ist für die Verwaltung von Benutzern innerhalb der Anwendung zuständig. Es lassen sich neue Benutzer anlegen, abrufen und Bestehende deaktivieren. Die bestehenden Endpunkte und Events können den beiden APIs entnommen werden.
 
 <br/>
 
-## Implementierungs Details
+### Implementierungs Details
 
-### Authentifizierung
+#### Authentifizierung
 
 Eine Authentifizierung ist zum derzeitigen Zeitpunkt nicht implementiert. Neue Benutzer werden ohne Passwort erstellt und können im System nur durch angabe ihrer ID verändert werden.
 
-### Soft- over Hard-Delete
+#### Soft- over Hard-Delete
 
 Benutzer werden bei einem Löschvorgang lediglich deaktiviert, um die Integrität innerhalb der Anwendung nicht zu 
 beeinflussen.  
@@ -84,8 +84,8 @@ Informationen, bis auf die `user-id`, gelöscht werden.
 
 <br/>
 
-## Datenbankschema
+### Datenbankschema
 
-### Erstellung
+#### Erstellung
 
 Das Datenbankschema wird von Spring automatisch durch JPA Annotationen erstellt.
