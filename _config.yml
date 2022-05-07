@@ -1,7 +1,7 @@
 ---
-title: Millidocs Theme
-description: Documentation for small projects
-url: "https://my-url"
+title: The SRL Documentation
+description: Documentation of SRL
+url: "https://dadepu.github.io/srscs-doc/"
 
 remote_theme: alexander-heimbuch/millidocs
 
