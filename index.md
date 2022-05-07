@@ -8,6 +8,8 @@ navigation: 1
 
 SRL ist eine Anwendung in Entwicklung zum Erstellen und Lernen von digitalen Karteikarten. In fertiger Form wird es dem Nutzer möglich sein, die Anwendung mobil über iOS, Android und über einen Web-Client im Browser zu erreichen.
 
+<br/>
+
 ### Mach mit!
 SRL ist ein Open-Source Projekt. Gerne bist du dazu eingeladen mitzuwirken. Im folgenden findest du einen Überblick der Dokumentation, die dir einen Einblick in das Projekt vermitteln soll und Konventionen an die Hand gibt, mit denen du deine erste Contribution machen kannst.
 
