@@ -38,12 +38,12 @@ Der Deck-Service ist für die Verwaltung von Decks, Karten, Presets und das Revi
 
 #### Infrastruktur
 
-- MongoDB *5.0.8* ([https://hub.docker.com/_/mongo?tab=tags](https://hub.docker.com/_/mongo?tab=tags))
+- MongoDB *5.0.8* (https://hub.docker.com/_/mongo?tab=tags)
 - Confluence-Kafka *5.2.5* ([https://hub.docker.com/r/confluentinc/cp-kafka](https://hub.docker.com/r/confluentinc/cp-kafka))
 
 #### Services
 
-- **User-Service**
+- User-Service
 
 <br/>
 
@@ -117,8 +117,7 @@ Wird jedoch in *Learning Phase* eine Karte vergessen, wird wieder mit dem ersten
 ### Implementierungs Details
 
 #### Race Conditions
-
-**Neues Deck erstellen**  
+ 
 Bei der Erstellung eines neuen Decks kann es derzeit zu einer Race Condition kommen. Das Erstellen ist nur für Benutzer möglich, die bereits vom Service durch ein Event erfasst wurden.
 
 Es ist zu überlegen, ob nicht ein temporäres Deck für einen temporären Benutzer erstellt werden sollte, wenn der Benutzer zum Zeitpunkt der Erstellung noch nicht bekannt ist. Das Empfangen des Benutzers könnte dann zu einer Aufwertung der temporären Datensätze führen.
@@ -165,9 +164,11 @@ Diese Value-Objects haben als Namingpattern das Prefix `Embedded*`.
 
 Jeder `Scheduler` bestitzt ein `EmbeddedSchedulerPreset`, eine Kopie des `SchedulerPresets`.
 
-Auf diese Weise kann eine Karte vollständig mit allen notwendigen Informationen mit nur einer Leseoperation geladen werden. Für $n$ Karten ergibt sich ein Aufwand von $n$ Zugriffen.
+Auf diese Weise kann eine Karte vollständig mit allen notwendigen Informationen mit nur einer Leseoperation geladen 
+werden. Für n Karten ergibt sich ein Aufwand von n Zugriffen.
 
-Wird jedoch das `SchedulerPreset` eines Decks geändert, muss für alle Karten des Decks das `EmbeddedSchedulerPreset` aktualisiert werden. Es ergeben sich $n$ Schreibzugriffe für $n$ Karten.
+Wird jedoch das `SchedulerPreset` eines Decks geändert, muss für alle Karten des Decks das `EmbeddedSchedulerPreset` 
+aktualisiert werden. Es ergeben sich n Schreibzugriffe für n Karten.
 
 Hierbei handelt es sich um eine Abwägung von aktuellen und in der Zukunft möglichen Anforderungen. Das aktuelle Datenschema sieht vor, dass Karten individuelle Presets haben werden.
 
