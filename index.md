@@ -17,5 +17,4 @@ Es gibt zahlreiche Studien und Belege dafür, dass das Lernen in Intervallen (Sp
 *Paradox, wie lernen, aber haben nie gelernt zu lernen und die Meisten werden es auch nie lernen.*
 
 Wir haben es uns zur Aufgabe gemacht eine frei verfügbare Plattform zu schaffen um Lernunterlagen zu digitalisieren und Karteikarten zu erstellen und das Wissen über diese Methode des Lernens zu verbreiten.
-
 Unsere Philosophie ist OpenSource, weil wir bei unseren Nutzern das Vertrauen schaffen möchten, dass die Plattform bestehen bleibt und ihre Unterlagen nicht verloren gehen.
