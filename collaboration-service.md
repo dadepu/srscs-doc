@@ -154,8 +154,8 @@ kein Query
 Wurde ein neues Deck erstellt muss geprüft werden, ob die Erstellung durch den Collaboration-Service veranlasst wurde und wenn ja, zu welcher Kollaboration und welchem Nutzer es gehört.
 Wenn der Collaboration-Service ein Kommando schickt zum Erstellen eines Decks, enthält dieses Kommando eine 
 `correlation-id`. Das Event kann nach dem Erstellen dann über diese ID zugeordnet werden.  
-Enthält das Event keine ID oder ist die ID nicht bekannt, ist das Event für den Collaboration-Service nicht relevant.
- `Find Collaboration by correlation-id`
+Enthält das Event keine ID oder ist die ID nicht bekannt, ist das Event für den Collaboration-Service nicht relevant.  
+`Find Collaboration by correlation-id`
 
 **EVENT: Card created**  
 Vergleichbar mit dem Erstellungsprozess eines Decks. Es wird geprüft, ob die Karte auf einen Befehl hin erstellt 
