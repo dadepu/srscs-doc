@@ -13,39 +13,41 @@ navigation: 2
 
 ### Download
 
-[https://github.com/dadepu/srscs-local-dev-env.git](https://github.com/dadepu/srscs-local-dev-env.git)
+[https://github.com/dadepu/srscs-local-dev-env](https://github.com/dadepu/srscs-local-dev-env)
 
 <br/>
 
 ### Starten der Anwendung
 
-In der Root-Directory des Repositories befinden sich die beiden Docker-Compose-Dateien, um die Anwendung zu starten. Die erste Datei startet die Services der Umgebung, die zweite die der Anwendung. 
+In der Root-Directory des Repositories befinden sich die beiden Dateien um die Umgebung und Anwendung zu starten.
 
-**Start der Umgebung**  
-Im ersten Schritt müssen die Services der Umgebung gestartet werden. Das kann über den folgenden Befehl im Terminal 
-oder in IntelliJ erfolgen:
+
+#### Umgebung
+ 
+Im ersten Schritt müssen die Services der Umgebung gestartet werden. Das kann über das Terminal oder IntelliJ geschehen.
 
 ```
-docker-compose -f ... up -d
+docker-compose -f compose-env.yml up -d
 ```
 
-**Datenbankschema erstellen**
-Das Datenbankschema für MariaDB und MongoDB wird durch die jeweiligen Spring Services initialisiert. Für Cassandra muss das Schema über ein CQL Skript erstellt werden. Die Datei befindet sich im gleichen Ordner unter dem Namen `cassandra-build.cql`.
+**Datenbankschema erstellen**  
+Das Datenbankschema für MariaDb und MongoDb wird automatisch durch die entsprechenden Services erstellt. Für 
+Cassandra muss das Schema über ein .cql Skript erstellt werden. Das Skript befindet sich in der Root-Dir mit dem Namen `cassandra-build.cql`. 
 
-Um das Schema zu laden, muss über IntelliJ (oder DataGrip) eine Verbindung zu Cassandra hergestellt werden.
+Zuerst muss Cassandra als Data-Source in IntelliJ hinzugefügt werden. Die Daten lauten wie folgt, können aber auch dem Compose-File entnommen werden:  
+`host: localhost`  
+`user: root`  
+`password: root`
 
-`Address:`  
-`User:`  
-`Password:`
+Dann muss dem .cql-File eine Session mit Cassandra hinzugefügt werden. Daraufhin lässt sich das Skript ausführen und 
+das Datenbank-Schema wird initialisiert.
 
-Die Login Daten werden als Umgebungsvariablen über das Compose-File gesetzt und können angepasst werden.
+#### Anwendung
 
-Wenn die Verbindung erfolgreich hergestellt wurde, kann `cassandra-build.cql` über IntelliJ (oder DataGrip) ausgeführt werden. Wenn dieser Schritt erfolgreich war, müsste Cassandra die initialisierten Tabellen aufführen können.
+Die Anwendung wird nach dem gleichen Verfahren mit dem folgenden Befehl gestartet.
 
-**Starten der Services**  
-Die Services der Anwendung werden nach dem gleichen Ablauf, wie der Umgebung, gestartet. 
 ```
-docker-compose -f ... up -d
+docker-compose -f compose-app.yml up -d
 ```
 
 <br/>
