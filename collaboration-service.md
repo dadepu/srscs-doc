@@ -22,6 +22,12 @@ Der Collaboration-Service ermöglicht es Nutzern bei der Erstellung eines Decks 
 
 <br/>
 
+### Spezifikationen
+
+- [OpenAPI](/srscs-doc/api/collaboration-service/openapi/)
+
+<br/>
+
 ### Abhängigkeiten
 
 #### Module

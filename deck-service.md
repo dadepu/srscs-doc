@@ -22,6 +22,13 @@ Der Deck-Service ist für die Verwaltung von Decks, Karten, Presets und das Revi
 
 <br/>
 
+### Spezifikationen
+
+- [OpenAPI](/srscs-doc/api/deck-service/openapi/)
+- [AsyncAPI](/srscs-doc/api/deck-service/asyncapi/)
+
+<br/>
+
 ### Abhängigkeiten
 
 #### Module
