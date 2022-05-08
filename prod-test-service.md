@@ -18,7 +18,7 @@ Der Production Test Service dient zum Testen und Ausführen der Dienste während
 [https://github.com/dadepu/srscs-prod-test-service](https://github.com/dadepu/srscs-prod-test-service)
 
 **Docker-Image**  
-*TODO*
+[https://hub.docker.com/repository/docker/dadepu/srscs_prod_test](https://hub.docker.com/repository/docker/dadepu/srscs_prod_test)
 
 <br/>
 
@@ -57,7 +57,7 @@ Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine 
 [https://github.com/GoogleContainerTools/jib](https://github.com/GoogleContainerTools/jib)
 
 **Docker-Hub Image**  
-*TODO*
+[https://hub.docker.com/repository/docker/dadepu/srscs_prod_test](https://hub.docker.com/repository/docker/dadepu/srscs_prod_test)
 
 <br/>
 <br/>

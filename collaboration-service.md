@@ -15,10 +15,10 @@ Der Collaboration-Service ermöglicht es Nutzern bei der Erstellung eines Decks 
 ### Verwaltung
 
 **Github**  
-*TODO*
+[https://github.com/dadepu/srscs-collab-service](https://github.com/dadepu/srscs-collab-service)
 
 **Docker-Image**  
-*TODO*
+[https://hub.docker.com/repository/docker/dadepu/srscs_collab](https://hub.docker.com/repository/docker/dadepu/srscs_collab)
 
 <br/>
 
@@ -63,7 +63,7 @@ Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine 
 [https://github.com/GoogleContainerTools/jib](https://github.com/GoogleContainerTools/jib)
 
 **Docker-Hub Image**  
-*TODO*
+[https://hub.docker.com/repository/docker/dadepu/srscs_collab](https://hub.docker.com/repository/docker/dadepu/srscs_collab)
 
 <br/>
 <br/>
