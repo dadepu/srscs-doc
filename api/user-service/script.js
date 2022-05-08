@@ -1,272 +1,268 @@
 var spec = {
-  "openapi": "3.0.1",
-  "info": {
-    "version": "1.0.0",
-    "title": "API Specification Example"
-  },
-  "paths": {
-    "/articles": {
-      "post": {
-        "summary": "Create an article.",
-        "operationId": "createArticle",
-        "tags": [
-          "Article API"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Article"
-              }
+   "openapi": "3.0.0",
+   "info": {
+      "title": "User-Service API",
+      "version": "v1.1"
+   },
+   "paths": {
+      "/users": {
+         "post": {
+            "summary": "Creates a new user.",
+            "tags": [
+               "/users"
+            ],
+            "description": "Creates a new user with an unique username and mailaddress.",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/newUser"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "201": {
+                  "description": "New user created.",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/user"
+                        }
+                     }
+                  }
+               },
+               "403": {
+                  "description": "Possible causes are\n  - Username or mailaddress already in use\n"
+               }
             }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Article"
-                }
-              }
+         },
+         "get": {
+            "summary": "Retrieves a user by filter.",
+            "tags": [
+               "/users"
+            ],
+            "description": "Mutually exclusive filtering for username, mailaddress and user-id.\n",
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "filter",
+                  "required": true,
+                  "description": "Mutually exclusive.",
+                  "style": "form",
+                  "explode": true,
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "user-id": {
+                           "$ref": "#/components/schemas/uuid"
+                        },
+                        "username": {
+                           "$ref": "#/components/schemas/username"
+                        },
+                        "mail-address": {
+                           "$ref": "#/components/schemas/mail"
+                        }
+                     },
+                     "additionalProperties": false,
+                     "oneOf": [
+                        {
+                           "required": [
+                              "userId"
+                           ]
+                        },
+                        {
+                           "required": [
+                              "username"
+                           ]
+                        },
+                        {
+                           "required": [
+                              "mail-address"
+                           ]
+                        }
+                     ]
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Retrieves the queried user.",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/user"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "User not found."
+               }
             }
-          },
-          "400": {
-            "$ref": "#/components/responses/IllegalInput"
-          }
-        }
+         }
       },
-      "get": {
-        "summary": "Get a list of articles",
-        "operationId": "listArticles",
-        "tags": [
-          "Article API"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Limit"
-          },
-          {
-            "$ref": "#/components/parameters/Offset"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ArticleList"
-                }
-              }
+      "/users/{user-id}": {
+         "delete": {
+            "summary": "Disables the user.",
+            "tags": [
+               "/users"
+            ],
+            "description": "Soft deletes the user. No data will be removed.",
+            "parameters": [
+               {
+                  "$ref": "#/components/parameters/userId"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "User successfully deleted."
+               },
+               "404": {
+                  "description": "User not found."
+               }
             }
-          }
-        }
+         }
+      },
+      "/logs": {
+         "get": {
+            "summary": "Exposes log-files for dev. purposes.",
+            "tags": [
+               "/logs"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "file",
+                  "required": true,
+                  "examples": {
+                     "info": {
+                        "value": "info"
+                     },
+                     "error": {
+                        "value": "error"
+                     },
+                     "dinfo": {
+                        "value": "dinfo"
+                     },
+                     "dtrace": {
+                        "value": "dtrace"
+                     }
+                  },
+                  "schema": {
+                     "type": "string"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Returns the queried logfile.",
+                  "content": {
+                     "text/plain": {
+                        "schema": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            }
+         }
       }
-    },
-    "/articles/{id}": {
-      "get": {
-        "summary": "Get an article.",
-        "operationId": "getArticle",
-        "tags": [
-          "Article API"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Article"
-                }
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update",
-        "operationId": "updateArticle",
-        "tags": [
-          "Article API"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Id"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Article"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Article"
-                }
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete an article.",
-        "operationId": "deleteArticle",
-        "tags": [
-          "Article API"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Id"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Success"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Id": {
-        "description": "Resource ID",
-        "type": "integer",
-        "format": "int64",
-        "readOnly": true,
-        "example": 1
-      },
-      "ArticleForList": {
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/Id"
-          },
-          "category": {
-            "description": "Category of an article",
+   },
+   "components": {
+      "schemas": {
+         "uuid": {
             "type": "string",
-            "example": "sports"
-          }
-        }
-      },
-      "Article": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ArticleForList"
-          }
-        ],
-        "required": [
-          "text"
-        ],
-        "properties": {
-          "text": {
-            "description": "Content of an article",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+         },
+         "mail": {
             "type": "string",
-            "maxLength": 1024,
-            "example": "# Title\n\n## Head Line\n\nBody"
-          }
-        }
-      },
-      "ArticleList": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/ArticleForList"
-        }
-      },
-      "Error": {
-        "description": "<table>\n  <tr>\n    <th>Code</th>\n    <th>Description</th>\n  </tr>\n  <tr>\n    <td>illegal_input</td>\n    <td>The input is invalid.</td>\n  </tr>\n  <tr>\n    <td>not_found</td>\n    <td>The resource is not found.</td>\n  </tr>\n</table>\n",
-        "required": [
-          "code",
-          "message"
-        ],
-        "properties": {
-          "code": {
+            "description": "Mailaddresses must be unique.",
+            "format": "email",
+            "example": "dadepu@gmail.com"
+         },
+         "username": {
             "type": "string",
-            "example": "illegal_input"
-          }
-        }
-      }
-    },
-    "parameters": {
-      "Id": {
-        "name": "id",
-        "in": "path",
-        "description": "Resource ID",
-        "required": true,
-        "schema": {
-          "$ref": "#/components/schemas/Id"
-        }
+            "description": "Usernames must be unique.",
+            "example": "dadepu",
+            "pattern": "^([A-Za-z0-9]){4,16}$"
+         },
+         "name": {
+            "type": "string",
+            "example": "Daniel",
+            "pattern": "^([A-Za-z0-9 ]){3,12}$"
+         },
+         "password": {
+            "type": "string",
+            "format": "password",
+            "example": "abc123"
+         },
+         "newUser": {
+            "type": "object",
+            "required": [
+               "username",
+               "mailAddress",
+               "firstName",
+               "lastName"
+            ],
+            "properties": {
+               "username": {
+                  "$ref": "#/components/schemas/username"
+               },
+               "mailAddress": {
+                  "$ref": "#/components/schemas/mail"
+               },
+               "firstName": {
+                  "$ref": "#/components/schemas/name"
+               },
+               "lastName": {
+                  "$ref": "#/components/schemas/name"
+               }
+            }
+         },
+         "user": {
+            "type": "object",
+            "required": [
+               "userId",
+               "username",
+               "mailAddress",
+               "firstName",
+               "lastName",
+               "isActive"
+            ],
+            "properties": {
+               "userId": {
+                  "$ref": "#/components/schemas/uuid"
+               },
+               "username": {
+                  "$ref": "#/components/schemas/username"
+               },
+               "mailAddress": {
+                  "$ref": "#/components/schemas/mail"
+               },
+               "firstName": {
+                  "$ref": "#/components/schemas/name"
+               },
+               "lastName": {
+                  "$ref": "#/components/schemas/name"
+               },
+               "isActive": {
+                  "type": "boolean"
+               }
+            }
+         }
       },
-      "Limit": {
-        "name": "limit",
-        "in": "query",
-        "description": "limit",
-        "required": false,
-        "schema": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 100,
-          "default": 10,
-          "example": 10
-        }
-      },
-      "Offset": {
-        "name": "offset",
-        "in": "query",
-        "description": "offset",
-        "required": false,
-        "schema": {
-          "type": "integer",
-          "minimum": 0,
-          "default": 0,
-          "example": 10
-        }
-      }
-    },
-    "responses": {
-      "NotFound": {
-        "description": "The resource is not found.",
-        "content": {
-          "application/json": {
+      "parameters": {
+         "userId": {
+            "in": "path",
+            "name": "user-id",
             "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "IllegalInput": {
-        "description": "The input is invalid.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          }
-        }
+               "$ref": "#/components/schemas/uuid"
+            },
+            "required": true
+         }
       }
-    }
-  }
+   }
 }
