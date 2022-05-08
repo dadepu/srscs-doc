@@ -22,6 +22,13 @@ Der User-Service ist für die Verwaltung von Benutzern und allen mit diesen verb
 
 <br/>
 
+### Spezifikationen
+
+- [OpenAPI](/srscs-doc/api/user-service/openapi/)
+- [AsyncAPI](/srscs-doc/api/user-service/asyncapi/)
+
+<br/>
+
 ### Abhängigkeiten
 
 #### Module
