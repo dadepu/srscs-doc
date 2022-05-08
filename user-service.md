@@ -24,6 +24,7 @@ Der User-Service ist für die Verwaltung von Benutzern und allen mit diesen verb
 
 ### Spezifikationen
 
+- [Logisches Datenmodell](/srscs-doc/ldm/ldm-user-service.png)
 - [OpenAPI](/srscs-doc/api/user-service/openapi/)
 - [AsyncAPI](/srscs-doc/api/user-service/asyncapi/)
 

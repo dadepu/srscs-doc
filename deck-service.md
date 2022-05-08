@@ -24,6 +24,7 @@ Der Deck-Service ist für die Verwaltung von Decks, Karten, Presets und das Revi
 
 ### Spezifikationen
 
+- [Logisches Datenmodell](/srscs-doc/ldm/ldm-deck-service.png)
 - [OpenAPI](/srscs-doc/api/deck-service/openapi/)
 - [AsyncAPI](/srscs-doc/api/deck-service/asyncapi/)
 

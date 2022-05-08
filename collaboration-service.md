@@ -24,6 +24,7 @@ Der Collaboration-Service ermöglicht es Nutzern bei der Erstellung eines Decks 
 
 ### Spezifikationen
 
+- [Logisches Datenmodell](/srscs-doc/ldm/ldm-collab-service.png)
 - [OpenAPI](/srscs-doc/api/collaboration-service/openapi/)
 
 <br/>
