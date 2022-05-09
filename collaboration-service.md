@@ -4,6 +4,8 @@ title: Collaboration-Service
 navigation: 7
 ---
 
+# Collaboration-Service
+
 ## Überblick
 
 ### Kurzbeschreibung
@@ -45,8 +47,8 @@ Der Collaboration-Service ermöglicht es Nutzern bei der Erstellung eines Decks 
 
 #### Infrastruktur
 
-- Cassandra *4.0.3* (https://hub.docker.com/_/cassandra)
-- Confluence-Kafka *5.2.5* ([https://hub.docker.com/r/confluentinc/cp-kafka](https://hub.docker.com/r/confluentinc/cp-kafka))
+- Cassandra *4.0.3* https://hub.docker.com/_/cassandra
+- Confluence-Kafka *5.2.5* [https://hub.docker.com/r/confluentinc/cp-kafka](https://hub.docker.com/r/confluentinc/cp-kafka)
 
 #### Services
 
@@ -87,10 +89,10 @@ Verlässt ein Nutzer eine Kollaboration, behält er den aktuellen Zustand des ge
 #### Race Conditions
 
 **User**  
-Theoretisch kann es bei der Erstellung oder Einladung zu einer Kollaboration zu einer Race Condition kommen, wenn ein User referenziert wird, der dem Service noch nicht bekannt ist, sehr wohl aber schon existiert.
+Theoretisch kann es bei der Erstellung oder Einladung zu einer Kollaboration zu einer Race Condition kommen, wenn ein User referenziert wird, der dem Service noch nicht bekannt ist, bereits aber existiert.
 
 **Decks / Karten**  
-Es wird vorausgesetzt, dass alle Prozesse des Deck-Service in strikter Reihenfolge veröffentlicht werden.
+Es wird vorausgesetzt, dass alle Events des Deck-Service in strikter Reihenfolge veröffentlicht werden.
 
 #### Authentifizierung
 
@@ -104,11 +106,9 @@ Für einen Abgleich zwischen den Decks werden Änderungen in diesen erfasst und 
 
 #### Version einer Karte
 
-Wird durch einen Benutzer in eine Kollaborations-Deck eine neue Karte erstellt, wird diese als Kopie-Vorlage für die 
-anderen Decks verwendet. Für n Nutzer mit jeweils eigenen Decks ergeben sich daraus n unterschiedliche Karten mit 
-jeweils individuellen IDs.
+Wird durch einen Benutzer in einem Kollaborations-Deck eine neue Karte erstellt, wird diese als Kopie-Vorlage für die anderen Decks verwendet. Für n Nutzer mit jeweils eigenen Decks ergeben sich daraus n unterschiedliche Karten mit jeweils individuellen IDs.
 
-Ändert ein beliebiger Teilnehmer diese zuvor erstellte Karte, muss diese Änderung an die anderen Teilnehmer weitergegeben werden. Um die entsprechenden Karten mit der neuen Version überschreiben zu können, müssen die IDs jedoch bekannt sein.
+Ändert ein beliebiger Teilnehmer diese zuvor erstellte Karte, muss diese Änderung an die anderen Teilnehmer weitergegeben werden. Um die entsprechenden Karten mit der neuen Version überschreiben zu können, müssen deren IDs jedoch bekannt sein.
 
 Diese Zuordnung wird vorgenommen durch die `CollaborationCard`, die die jeweiligen Versionen und die korrelierenden Karten der Benutzer zuordnet.
 
@@ -276,7 +276,6 @@ CREATE TABLE collaborationcard_by_cardid (
 
 #### Persönliche Bemerkung
 
-Der Einsatz von Cassandra stellt sich in der nachträglichen Betrachtung als wenig sinnvoll heraus. Es wurde ursprünglich von einem zu simplen Datenbankschema ausgegangen und die Anzahl der Prozesse erheblich unterschätzt.
-Auch wurde fälschlicherweise angenommen, dass es zu erheblich mehr Schreib- als Leseoperationen kommen würde. Im realen Betrieb ist jedoch das genaue Gegenteil der Fall.
+Der Einsatz von Cassandra stellt sich in der nachträglichen Betrachtung als wenig sinnvoll heraus. Es wurde ursprünglich von einem zu simplen Datenbankschema ausgegangen und die Anzahl der Prozesse wurde erheblich unterschätzt. Auch wurde fälschlicherweise angenommen, dass es zu deutlich mehr Schreib- als Leseoperationen kommen würde. Im realen Betrieb ist jedoch das genaue Gegenteil der Fall.
 
-Ebenfalls wird die Flexibilität gegenüber neuen Anforderungen massiv eingeschränkt, weil es potentiell zu einer Vielzahl von Änderungen im Datenbank Schema kommen kann. Sollten neue Anforderungen erwachsen, wird deshalb ein Refactoring auf MongoDB in Erwägung gezogen.
+Ebenfalls wird die Flexibilität gegenüber neuen Anforderungen massiv eingeschränkt, weil es potentiell zu einer Vielzahl von Änderungen am Datenbank Schema kommen kann. Sollten neue Anforderungen erwachsen, wird deshalb ein Refactoring auf MongoDB in Erwägung gezogen.

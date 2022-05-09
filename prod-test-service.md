@@ -4,6 +4,8 @@ title: Production-Test-Service
 navigation: 8
 ---
 
+# Production-Test-Service
+
 ## Überblick
 
 ### Kurzbeschreibung
@@ -66,9 +68,9 @@ Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine 
 
 ### Fachliche Service-Beschreibung
 
-Der Production-Test-Service erlaubt es, das System während eines produktiven Zustands durch den Einsatz von Mock-Nutzern zu testen.
+Der Production-Test-Service erlaubt es, die Funktionalität während des produktiven Einsatzes durch Mock-Nutzer zu testen. Störungen sollen frühzeitig festgestellt werden.
 
-Um ein realitätsnahes Verhalten zu simulieren, greift der Service über die vorhandenen REST-Schnittstellen auf die Services zu. Dabei werden neue Nutzer erstellt, Decks angelegt und deaktiviert, neue Karten erstellt, bearbeitet und reviewed und es wird mit anderen Mock-Nutzern aktiv kollaboriert.
+Um ein realitätsnahes Verhalten zu simulieren, greift der Service über die vorhandenen REST-Schnittstellen auf die Services zu. Dabei werden neue Nutzer erstellt, Decks angelegt und deaktiviert, neue Karten erstellt, bearbeitet und reviewed und es wird mit anderen Mock-Nutzern gemeinsam kollaboriert.
 
 <br/>
 
@@ -76,9 +78,9 @@ Um ein realitätsnahes Verhalten zu simulieren, greift der Service über die vor
 
 #### Automatisierte Tests
 
-In seiner momentanen Form simuliert der Service die Nutzung des Systems, validiert diese jedoch nicht. Eine 
-Validierung erfolgt derzeit nur von Hand.  
-Dieses Feature wird ein Verbindung mit einer Log Aggregation und einem Tracing von Geschäftsprozessen umgesetzt werden.
+In seiner momentanen Form ist es dem Service möglich die Nutzung des Systems zu simulieren, validiert diese jedoch nicht.
+
+Dieses Feature soll in Verbindung mit einem Tracing und einer Log-Aggregation erweitert werden, sodass Störungen frühzeitig zu einer Warnung führen.
 
 <br/>
 

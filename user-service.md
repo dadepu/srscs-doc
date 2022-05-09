@@ -4,6 +4,8 @@ title: User-Service
 navigation: 5
 ---
 
+# User-Service
+
 ## Überblick
 
 ### Kurzbeschreibung
@@ -58,7 +60,7 @@ Der Service hat **keine** Abhängigkeiten innerhalb der Anwendung zu anderen Ser
 
 ### Containerization
 
-Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine automatisierte Build-Pipeline existiert zum derzeiten Zeitpunkt noch nicht.
+Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine automatisierte Build-Pipeline existiert zum derzeiten Zeitpunkt nicht.
 
 **Jib Dokumentation**  
 [https://github.com/GoogleContainerTools/jib](https://github.com/GoogleContainerTools/jib)
