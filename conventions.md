@@ -96,4 +96,4 @@ Es darf nur *working-code* veröffentlicht werden. Alle Schnittstellen sind **ve
 
 <br/>
 
-[**Weiter: Service-Überblick**](/srscs-doc/service-overview.html)
+[***Weiter: Service-Überblick***](/srscs-doc/service-overview.html)

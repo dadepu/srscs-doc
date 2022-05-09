@@ -70,4 +70,4 @@ Die Services der Anwendung lassen sich mit Postman durch REST-Calls prüfen.
 
 <br/>
 
-[**Weiter: Konventionen**](/srscs-doc/conventions.html)
+[***Weiter: Konventionen***](/srscs-doc/conventions.html)

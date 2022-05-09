@@ -24,4 +24,4 @@ Mit unserer Plattform haben wir es uns zur Aufgabe gemacht, eine für jeden kost
 
 <br/>
 
-[**Weiter: Lokale Ausführung**](/srscs-doc/quick-start.html)
+[***Weiter: Lokale Ausführung***](/srscs-doc/quick-start.html)

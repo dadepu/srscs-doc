@@ -4,12 +4,11 @@ title: Service-Überblick
 navigation: 4
 ---
 
-## Microservice
+# Service-Überblick
 
-Das SRL Cloud-Backend ist als Microservice entworfen und besteht im Kern aus dem User- und Deck-Service, die 
-gemeinsam die Basisfunktionen der Anwendung abbilden.  
-Es wurde sich bewusst zu einem Microservice entscheiden, weil die parallele und unabhängige Entwicklung in einer 
-Open Source Umgebung gefördert werden soll.
+### Microservice-Architektur
+
+Das SRL Cloud-Backend ist als Microservice-Architektur entworfen und besteht im Kern aus dem User- und Deck-Service, die gemeinsam die Basisfunktionen der Anwendung abbilden. Es wurde sich bewusst zu einem Microservice entschieden, weil die parallele und unabhängige Entwicklung in einer OpenSource Umgebung gefördert werden soll.
 
 <br/>
 
@@ -19,30 +18,34 @@ Im Folgenden soll ein kurzer Überblick über die einzelnen Services und deren E
 
 #### User-Service
 
-Der User-Service ist für die Verwaltung, Erstellung und Authentifizierung von Nutzern zuständig. Es können neue Nutzer angelegt werden und bestehende lassen sich deaktivieren.
+Der User-Service ist für die Verwaltung, Erstellung und Authentifizierung von Nutzern zuständig. Es können neue Nutzer angelegt werden und bestehende lassen sich deaktivieren.  
+[***Link: Detailbeschreibung***](/srscs-doc/user-service.html)
 
 #### Deck-Service
 
-Der Deck-Service ist für die Verwaltung von Decks und Karten zuständig. Jede Karte besitzt einen Scheduler der definiert, wann diese zu wiederholen ist. Dieser lässt sich individuell konfigurieren. Diese Konfiguration wird als Scheduler-Preset bezeichnet und kann vom Nutzer individuell angelegt werden.
+Der Deck-Service ist für die Verwaltung von Decks und Karten zuständig. Jede Karte besitzt einen Scheduler der definiert, wann diese zu wiederholen ist. Dieser lässt sich individuell konfigurieren. Diese Konfiguration wird als Scheduler-Preset bezeichnet und kann vom Nutzer selbst konfiguriert werden.
 
-Karten sind in der gesamten Anwendung immutable. Das bedeutet, dass wenn eine Karte geändert wird, eine neue Version dieser erzeugt werden muss. Somit kann jeder Version einer Karte eine eindeutige ID zugeordnet werden. Diese Eigenschaft ist wichtig, damit das Konzept einer Karte für andere Services auf genau diese ID reduziert werden kann.
+Karten sind in der gesamten Anwendung unveränderlich (immutable). Das bedeutet, dass beim Ändern einer Karte immer eine neue geänderte Kopie erstellt werden muss. Daher kann jeder Version einer Karte eine eindeutige ID zugeordnet werden. Diese Eigenschaft ist wichtig, damit das Konzept einer Karte für andere Services auf diese ID reduziert werden kann.  
+[***Link: Detailbeschreibung***](/srscs-doc/deck-service.html)
 
 #### Collaboration-Service
 
-Der Collaboration-Service ermöglicht es Nutzern bei der Erstellung eines Decks zu kollaborieren. So können bis zu 10 Nutzern gemeinsam an einem Deck arbeiten.
+Der Collaboration-Service ermöglicht es Nutzern bei der Erstellung eines Decks zu kollaborieren. So können bis zu 10 Nutzern gemeinsam an einem Deck arbeiten.  
+[***Link: Detailbeschreibung***](/srscs-doc/collaboration-service.html)
 
 #### Sharing-Service (nicht implementiert)
 
-Der Sharing-Service soll es ermöglichen, dass ein Nutzer sein Deck über eine URL oder ID mit anderen Nutzern teilen kann, sodass diese Updates erhalten, gleichzeitig aber private Änderungen an diesem Deck vornehmen können, die nur für sie sichtbar sind.
+Der Sharing-Service soll es einem Nutzer zukünftig ermöglichen, sein Deck mit anderen Nutzern über eine ID oder URL zu teilen. Empfänger erhalten daraufhin Updates, können aber private Änderungen an ihrem Deck vornehmen.
 
 #### Search-Service (nicht implementiert)
 
-Nutzer sollen die Möglichkeit haben ihre Decks nach Karten anhand von Schlagwörtern oder Bestandteilen ihres Inhalts zu durchsuchen.
+Nutzern soll es ermöglicht werden, nach Karten anhand von Schlagwörtern oder Bruchteilen des Inhalts der Karte zu suchen.
 
 #### Statistics-Service (nicht implementiert)
 
-Nutzer sollen die Möglichkeit haben Statistiken zu ihrer Plattformnutzung und ihren Decks abrufen zu können. Außerdem sollen sich Karten ermitteln lassen die schlecht performen, sodass der Nutzer diese gezielt anpassen kann.
+Nutzer sollen die Möglichkeit haben, Statistiken zu ihrer Plattformnutzung und ihren Decks abzurufen. Darüber hinaus sollen sich Karten ermitteln lassen, die besonders schlecht performen, damit Nutzer diese gezielt anpassen können.
 
 #### Production-Test-Service
 
-Der Production-Test-Service simuliert die Nutzung der Plattform durch fiktive Nutzer, um während dem produktiven Betrieb sicher zu stellen, dass die Anwendung fehlerfrei funktioniert.
+Der Production-Test-Service simuliert die Nutzung der Plattform durch fiktive Nutzer während eines produktiven Betriebs, um mögliche Probleme frühzeitig festzustellen.  
+[***Link: Detailbeschreibung***](/srscs-doc/prod-test-service.html)
