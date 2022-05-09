@@ -4,6 +4,8 @@ title: Lokale Ausführung
 navigation: 2
 ---
 
+# Lokale Ausführung
+
 ### Voraussetzungen
 
 1. Docker (https://www.docker.com/)
@@ -19,28 +21,26 @@ navigation: 2
 
 ### Starten der Anwendung
 
-In der Root-Directory des Repositories befinden sich die beiden Dateien um die Umgebung und Anwendung zu starten.
+In der Root-Directory des Repositories befinden sich die beiden Dateien um Umgebung und Anwendung zu starten.
 
 
 #### Umgebung
  
-Im ersten Schritt müssen die Services der Umgebung gestartet werden. Das kann über das Terminal oder IntelliJ geschehen.
+Zuallererst müssen die Services der Umgebung gestartet werden, bevor sich die Anwendung starten lässt. Das kann über das Terminal oder IntelliJ geschehen.
 
 ```
 docker-compose -f compose-env.yml up -d
 ```
 
 **Datenbankschema erstellen**  
-Das Datenbankschema für MariaDb und MongoDb wird automatisch durch die entsprechenden Services erstellt. Für 
-Cassandra muss das Schema über ein .cql Skript erstellt werden. Das Skript befindet sich in der Root-Dir mit dem Namen `cassandra-build.cql`. 
+Das Datenbankschema für MariaDb und MongoDb wird automatisch durch die entsprechenden Services erstellt. Für Cassandra muss das Schema über ein .cql Skript erstellt werden. Das Skript befindet sich in der Root-Dir mit dem Namen `cassandra-build.cql`. 
 
 Zuerst muss Cassandra als Data-Source in IntelliJ hinzugefügt werden. Die Daten lauten wie folgt, können aber auch dem Compose-File entnommen werden:  
 `host: localhost`  
 `user: root`  
 `password: root`
 
-Dann muss dem .cql-File eine Session mit Cassandra hinzugefügt werden. Daraufhin lässt sich das Skript ausführen und 
-das Datenbank-Schema wird initialisiert.
+Dann muss dem .cql-File eine Session mit Cassandra hinzugefügt werden. Daraufhin lässt sich das Skript ausführen und das Datenbank-Schema wird initialisiert.
 
 #### Anwendung
 
@@ -55,15 +55,15 @@ docker-compose -f compose-app.yml up -d
 ### Prüfen der Umgebung
 
 **MariaDB**  
-Um zu prüfen, ob sich eine Verbindung zu MariaDB herstellt lässt, kann phpMyAdmin aufgerufen werden.  
+Um zu prüfen, ob sich eine Verbindung zu MariaDB herstellt lässt, kann phpMyAdmin aufgerufen werden:  
 `http://localhost:8100`
 
 **MongoDB**  
-MongoDB lässt sich durch MongoExpress unter folgender Adresse prüfen  
+MongoDB lässt sich durch MongoExpress unter folgender Adresse prüfen:  
 `http://localhost:8081`
 
 **Cassandra**  
 Über eine Verbindung in IntelliJ oder DataGrip.
 
 **Anwendungs-Services**  
-Die Services der Anwendung lassen sich durch REST-Calls prüfen.
+Die Services der Anwendung lassen sich mit Postman durch REST-Calls prüfen.
