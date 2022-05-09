@@ -1,8 +1,10 @@
 ---
 layout: page
-title: What's next?
+title: What's next
 navigation: 9
 ---
+
+# What's next
 
 ## Allgemein
 
@@ -25,15 +27,15 @@ CI und CD Pipelines mit Test Stages.
 Eine Authentifizierung um das Injecten invalider Events zu verhindern.
 
 **Authentifizierung von Nutzern**  
-Eine Authentifizierung von Nutzern mit der Anwendung. Derzeit müssen Nutzer kein Passwort hinterlegen - das soll sich ändern. Auch sollen authentifizierungen über Git und Google ermöglicht werden.
+Eine Authentifizierung von Nutzern mit der Anwendung. Derzeit müssen Nutzer kein Passwort hinterlegen - das soll sich ändern. Auch sollen Authentifizierungen über Git und Google möglich werden.
 
 
 ## Services
 
 ### Production-Test-Service
 **Validierung und Alerting**  
-Der Production-Test-Service soll während eines Live-Betriebs die Funktionfähigkeit des Systems prüfen.
-Dazu ist eine Erweiterung des Services nötig, sodass alle gestarteten Prozesse anschließend verifiziert werden. Im Falle einer Abweichung müsste das System Alarm schlagen und es ließe sich durch das Aggregieren von Logs nachvollziehen, wie der Vorfall sich zusammen gesetzt hat.
+Der Production-Test-Service soll während des produktiven Betriebs die Funktionalität des Systems prüfen. Für dieses Feature ist eine Erweiterung des Services nötig, sodass alle gestarteten Prozesse anschließend evaluiert werden und mögliche Fehler Alarm schlagen.  
+Mit Hilfe von Tracing und einer Log Aggregation soll forensisch nachvollziehbar werden, wie es zu dem Fehler gekomme ist.
 
 ### Sharing-Service
 Vollständige Implementierung
