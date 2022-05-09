@@ -67,3 +67,7 @@ MongoDB lässt sich durch MongoExpress unter folgender Adresse prüfen:
 
 **Anwendungs-Services**  
 Die Services der Anwendung lassen sich mit Postman durch REST-Calls prüfen.
+
+<br/>
+
+[**Weiter: Konventionen**](/srscs-doc/conventions.html)
