@@ -54,7 +54,8 @@ Der User-Service ist für die Verwaltung von Nutzern und allen mit ihren verbund
 
 #### Services
 
-Der Service hat **keine** Abhängigkeiten innerhalb der Anwendung zu anderen Services. [***Link: Context-Map***](/ldm/context-map.png)
+Der Service hat **keine** Abhängigkeiten innerhalb der Anwendung zu anderen Services.  
+[***Link: Context-Map***](/ldm/context-map.png)
 
 <br/>
 
