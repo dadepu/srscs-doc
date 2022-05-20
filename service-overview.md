@@ -29,9 +29,9 @@ Der User-Service ist für die Verwaltung, Erstellung und Authentifizierung von N
 
 #### Deck-Service
 
-Der Deck-Service ist für die Verwaltung von Decks und Karten zuständig. Jede Karte besitzt einen Scheduler der definiert, wann diese zu wiederholen ist. Dieser lässt sich individuell konfigurieren. Diese Konfiguration wird als Scheduler-Preset bezeichnet und kann vom Nutzer selbst konfiguriert werden.
+Der Deck-Service ist für die Verwaltung von Decks und Karten zuständig. Jede Karte besitzt einen Scheduler, der definiert, wann diese zu wiederholen ist. Dieser lässt sich individuell konfigurieren. Diese Konfiguration wird als Scheduler-Preset bezeichnet und kann vom Nutzer angepasst werden.
 
-Karten sind in der gesamten Anwendung unveränderlich (immutable). Das bedeutet, dass beim Ändern einer Karte immer eine neue geänderte Kopie erstellt werden muss. Daher kann jeder Version einer Karte eine eindeutige ID zugeordnet werden. Diese Eigenschaft ist wichtig, damit das Konzept einer Karte für andere Services auf diese ID reduziert werden kann.  
+Karten sind in der gesamten Anwendung bezüglich ihres Typs und Inhalts unveränderlich (immutable). Das bedeutet, dass beim Ändern einer Karte immer eine neue Kopie erstellt werden muss. Daraus folgt, dass jeder Version einer Karte eine eindeutige ID zugeordnet werden kann. Diese Eigenschaft ist wichtig, damit das Konzept einer Karte für andere Services auf diese ID reduziert werden kann.  
 [***Link: Detailbeschreibung***](/srscs-doc/deck-service.html)
 
 <br/>
@@ -45,7 +45,7 @@ Der Collaboration-Service ermöglicht es Nutzern bei der Erstellung eines Decks 
 
 #### Sharing-Service (nicht implementiert)
 
-Der Sharing-Service soll es einem Nutzer zukünftig ermöglichen, sein Deck mit anderen Nutzern über eine ID oder URL zu teilen. Empfänger erhalten daraufhin Updates, können aber private Änderungen an ihrem Deck vornehmen.
+Der Sharing-Service soll es einem Nutzer zukünftig ermöglichen sein Deck mit anderen Nutzern über eine ID oder URL zu teilen. Empfänger erhalten daraufhin Updates, können jedoch private Änderungen an ihrem Deck vornehmen.
 
 <br/>
 
