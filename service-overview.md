@@ -16,6 +16,10 @@ Das SRL Cloud-Backend ist als Microservice-Architektur entworfen und besteht im 
 
 Im Folgenden soll ein kurzer Überblick über die einzelnen Services und deren Einordnung in den Kontext gegeben werden. Zu jedem Service findet sich eine entsprechende Detailbeschreibung verlinkt.
 
+[***Link: Context-Map***](/ldm/context-map.png)
+<br />
+<br />
+
 #### User-Service
 
 Der User-Service ist für die Verwaltung, Erstellung und Authentifizierung von Nutzern zuständig. Es können neue Nutzer angelegt werden und bestehende lassen sich deaktivieren.  

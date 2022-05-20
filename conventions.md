@@ -60,7 +60,7 @@ Jedes Repository enthält die folgenden Ordner
 **Java Dir**  
 Der Aufbau folgt dem Standard von Domain Driven Design mit der Abwandlung, dass Aggregates in einem jeweils eigenen Ordner zu gruppieren sind.
 
-Die Domain jedes Services befindet sich in `/domain`. Jede Schnittstelle des Service, die mit der Domain interagiert, befindet sich in einem eigenen Ordner in der obersten Ebene der Ordner-Hierarchie, mit Ausnahme des Data Access Layers in Form von Repositories, der Teil der Domain ist.
+Die Domain jedes Services befindet sich in `/domain`. Jede Schnittstelle des Service, die mit der Domain interagiert, befindet sich in einem eigenen Ordner in der obersten Ebene der Ordner-Hierarchie, mit Ausnahme des Data Access Layers in Form von Repositories, der Bestandteil des jeweiligen Aggregates der Domain ist.
 
 Für die oberste Ebene ergibt sich die folgende Struktur:
 - `/commands` für asynchrone Command-Messages, die der Service empfängt
@@ -68,6 +68,8 @@ Für die oberste Ebene ergibt sich die folgende Struktur:
 - `/domain` für die Domain der Anwendung
 - `/events` für Events, die der Service veröffentlicht
 - `/web` für http Anfragen, die der Service stellt
+
+Das Ziel ist die Trennung der Schnittstellen von der Domain des jeweiligen Service, um Zuständigkeiten klar zu trennen für eine bessere Übersichtlichkeit.
 
 Data Transfer Objects (DTOs) sind in den jeweiligen Schnittstellen zu platzieren. Eine gemeinsame Nutzung ist aus Gründen der Struktur nicht gewünscht.
 

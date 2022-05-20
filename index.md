@@ -6,7 +6,7 @@ navigation: 1
 
 # The SRL Documentation
 
-SRL ist eine Anwendung in Entwicklung zum Erstellen und Lernen von digitalen Karteikarten. In fertiger Form wird es dem Nutzer möglich sein, die Anwendung mobil über iOS, Android und über einen Web-Client im Browser zu erreichen.
+SRL ist eine Anwendung in Entwicklung zum Erstellen und Wiederholen von digitalen Karteikarten. In fertiger Form wird es dem Nutzer möglich sein Karteikarten unterschiedlichen Typs zu erstellen und mit seinen Freunden zu teilen. Die Anwendung wird mobil verfügbar sein für iOS und Android sowie über einen Web-Client im Browser.
 
 <br/>
 
