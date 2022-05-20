@@ -10,7 +10,7 @@ navigation: 5
 
 ### Kurzbeschreibung
 
-Der User-Service ist für die Verwaltung von Benutzern und allen mit diesen verbundenen Daten zuständig.
+Der User-Service ist für die Verwaltung von Nutzern und allen mit ihren verbundenen Daten verantwortlich.
 
 <br/>
 
@@ -54,13 +54,13 @@ Der User-Service ist für die Verwaltung von Benutzern und allen mit diesen verb
 
 #### Services
 
-Der Service hat **keine** Abhängigkeiten innerhalb der Anwendung zu anderen Services.
+Der Service hat **keine** Abhängigkeiten innerhalb der Anwendung zu anderen Services. [***Link: Context-Map***](/ldm/context-map.png)
 
 <br/>
 
 ### Containerization
 
-Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine automatisierte Build-Pipeline existiert zum derzeiten Zeitpunkt nicht.
+Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet.
 
 **Jib Dokumentation**  
 [https://github.com/GoogleContainerTools/jib](https://github.com/GoogleContainerTools/jib)
@@ -75,7 +75,7 @@ Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine 
 
 ### Fachliche Service-Beschreibung
 
-Der User-Service ist für die Verwaltung von Benutzern innerhalb der Anwendung zuständig. Es lassen sich neue Benutzer anlegen, abrufen und Bestehende deaktivieren. Die bestehenden Endpunkte und Events können den beiden APIs entnommen werden.
+Der User-Service ist für die Verwaltung von Nutzern innerhalb der Anwendung zuständig. Es lassen sich neue Benutzer anlegen, abrufen und bestehende deaktivieren. Die angebotenen Endpunkte und Events können den beiden APIs entnommen werden.
 
 <br/>
 
@@ -87,10 +87,8 @@ Eine Authentifizierung ist zum derzeitigen Zeitpunkt nicht implementiert. Neue B
 
 #### Soft- over Hard-Delete
 
-Benutzer werden bei einem Löschvorgang lediglich deaktiviert, um die Integrität innerhalb der Anwendung nicht zu 
-beeinflussen.  
-Mögliche wäre auch ein Szenario aus datenschutzrechtlichen Gründen, in dem alle nutzer-relevanten 
-Informationen, bis auf die `user-id`, gelöscht werden.
+Benutzer werden bei einem Löschvorgang lediglich deaktiviert, um die Integrität innerhalb der Anwendung nicht zu beeinflussen.  
+Mögliche wäre auch ein Szenario aus datenschutzrechtlichen Gründen, in dem alle nutzer-relevanten Informationen, bis auf die `user-id`, gelöscht werden.
 
 <br/>
 
@@ -98,7 +96,7 @@ Informationen, bis auf die `user-id`, gelöscht werden.
 
 #### Erstellung
 
-Das Datenbankschema wird von Spring automatisch durch JPA Annotationen erstellt.
+Das Datenbankschema wird von Spring automatisch durch JPA Annotationen erzeugt.
 
 <br/>
 <br/>
