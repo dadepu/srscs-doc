@@ -26,7 +26,7 @@ In der Root-Directory des Repositories befinden sich die beiden Dateien um Umgeb
 
 #### Umgebung
  
-Zuallererst müssen die Services der Umgebung gestartet werden, bevor sich die Anwendung starten lässt. Das kann über das Terminal oder IntelliJ geschehen.
+Zuallererst müssen die Services der Umgebung gestartet werden, bevor sich die Anwendung starten lässt. Das kann über das Terminal oder IntelliJ geschehen. 
 
 ```
 docker-compose -f compose-env.yml up -d
@@ -44,7 +44,7 @@ Dann muss dem .cql-File eine Session mit Cassandra hinzugefügt werden. Daraufhi
 
 #### Anwendung
 
-Die Anwendung wird nach dem gleichen Verfahren mit dem folgenden Befehl gestartet.
+Die Anwendung wird nach dem gleichen Verfahren mit dem folgenden Befehl gestartet. Allerdings müssen **alle** Umgebungs-Services betriebsbereit sein. Insbesondere der Kafkabroker.
 
 ```
 docker-compose -f compose-app.yml up -d
