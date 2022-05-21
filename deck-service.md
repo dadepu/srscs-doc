@@ -26,6 +26,7 @@ Der Deck-Service ist für die Verwaltung von Decks, Karten, Presets und das Revi
 
 ### Spezifikationen
 
+- [Context-Map](/ldm/context-map.png)
 - [Logisches Datenmodell](/srscs-doc/ldm/ldm-deck-service.png)
 - [OpenAPI](/srscs-doc/api/deck-service/openapi/)
 - [AsyncAPI](/srscs-doc/api/deck-service/asyncapi/)
@@ -59,7 +60,7 @@ Der Deck-Service ist für die Verwaltung von Decks, Karten, Presets und das Revi
 
 ### Containerization
 
-Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine automatisierte Build-Pipeline existiert noch nicht.
+Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet.
 
 **Jib Dokumentation**  
 [https://github.com/GoogleContainerTools/jib](https://github.com/GoogleContainerTools/jib)
@@ -74,13 +75,13 @@ Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine 
 
 ### Fachliche Service-Beschreibung
 
-Der Deck-Service ist für die Verwaltung von Decks, Karten, dem Scheduler einer Karte und der Konfiguration des Scheduler, dem SchedulerPreset, zuständig.
+Der Deck-Service ist für die Verwaltung von Decks, Karten, dem Scheduler einer Karte und der Konfiguration des Schedulers, dem SchedulerPreset, zuständig.
 
-In der Analogie zu physischen Karteikarten ist das Deck der Kasten, in dem man seine Karteikarten gruppiert. Diesen Decks können Karten hinzugefügt werden. Eine Karte besteht immer aus einem Inhalt und dem Scheduler, der die Lernintervalle definiert.
+In der Analogie zu physischen Karteikarten ist das Deck die Ablage, in der die Karten gruppiert werden. Eine digitale Karte besteht immer aus einem Inhalt und einem Scheduler, der die Lernintervalle definiert.
 
-Die Standard-Karte hat eine Vor- und Rückseite mit Frage und Antwort und eine optionale Antworthilfe. Ein weiterer Typ Karte ist die so genannte *Typing-Card*, bei der die Lösung eingetippt werden muss. Besonders geeignet für Vokabeln. Weitere Typen sind möglich.
+Die Standard-Karte besitzt eine Vor- und Rückseite mit Frage und Antwort. Zusätzlich kann ein Tipp auf die richtige Antwort hinterlegt werden. Ein weiterer Kartentyp ist die *Typing-Card*, bei der die Lösung eingetippt werden muss, die sich besonders für Vokabeln eignet. Weitere Kartentypen sind möglich.
 
-Für das Feedback zum Reviewen einer Karte stehen dem Benutzer verschiedene Schwierigkeitsgrade zur Auswahl, die Einfluss auf das berechnete Folge-Interval nehmen. Der Scheduler berechnet die Intervalle nach einer Konfiguration, dem SchedulerPreset. Dieses Preset kann von dem Benutzer individuell erstellt und konfiguriert werden.
+Beim Reviewen einer Karte gibt der Benutzer der Anwendung Feedback, wie schwer es für ihn war, sich an den Inhalt der Karte zu erinnern. Basierend auf diesem berechnet der Scheduler der Karte das Folge-Interval, das den nächsten Review-Zeitpunkt definiert. Eine genaue Beschreibung des Algorithmus findet sich im Anschluss.
 
 <br/>
 
@@ -88,13 +89,13 @@ Für das Feedback zum Reviewen einer Karte stehen dem Benutzer verschiedene Schw
 
 #### Review Algorithmus
 
-Der Algorithmus besteht aus drei Phasen, der *Learning Phase*, der *Review Phase* und der *Lapsing Phase*.
+Der Algorithmus einer Karte besteht aus drei Phasen: Der *Learning Phase*, der *Review Phase* und der *Lapsing Phase*.
 
-Bei jeder Review stehen dem Benutzer vier Feedback-Möglichkeiten zur verfügung: *Easy, Normal, Hard* und *Bad*. Mit *Easy, Normal* und *Hard* gibt der Benutzer an, wie schwer es für ihn war, sich an den Inhalt der Karte zu erinnern. Konnte der Inhalt nicht wiedergegeben werden, ist das Feedback *Bad*. Der Einfluss des Feedbacks hängt von der jeweiligen Phase ab.
+Bei jeder Review stehen dem Benutzer vier Feedback-Auswahlen zur verfügung: *Easy, Normal, Hard* und *Bad*. Mit *Easy, Normal* und *Hard* gibt der Benutzer an, wie schwer es für ihn war, sich an den Inhalt der Karte zu erinnern. Konnte der Inhalt nicht wiedergegeben werden, ist das Feedback *Bad*. Den Einfluss, den das Feedback nimmt, hängt von der jeweiligen Phase ab.
 
 **Review Phase**
 
-Die *Review Phase* beginnt, wenn die *Learning Phase* verlassen wird. Ist das Feedback *Normal*, wird das aktuelle Intervall mit dem `ease-factor` multipliziert. Ein Standardwert ist 2,2.
+Die *Review Phase*  einer Karte beginnt, wenn sie ihre *Learning Phase* verlassen hat. Ist das Feedback *Normal*, wird das aktuelle Intervall mit dem `ease-factor` multipliziert. Ein Standardwert ist 2,2.
 
 Der `ease-factor` drückt aus, wie anspruchsvoll die Karte für den Benutzer ist. Damit dieser sich dem realen Schwierigkeitsgrad annähern kann, steigert oder reduziert er sich durch das gewählte Feedback. Während *Normal* bei korrekter konfiguration praktisch keine Änderung verursachen sollte, muss das Vergessen einer Karte zu einem deutlichen Penalty führen. Diese Modifikationen werden als `factor-modifier` bezeichnet.
 
@@ -104,7 +105,7 @@ Das Vergessen einer Karte führt zu dem Verlassen der *Review Phase*. Der Schedu
 
 **Lapsing Phase**
 
-Die *Lapsing Phase* dient der Auffrischung und beginnt, wenn in der *Review Phase* eine Karte vergessen wird.
+Die *Lapsing Phase* dient der Auffrischung und beginnt, wenn sich in der *Review Phase* nicht mehr an den Inhalt der Karte erinnert werden konnte.
 
 Es können Steps definiert werden, so genannte `lapse-steps`, die Intervalle definieren, in denen die Karte wiederholt werden muss. Erst nach dem erfolgreichen Durchlaufen aller Schritte wird aus der *Lapsing Phase* zurück in die *Review Phase* gewechselt.
 
@@ -126,19 +127,30 @@ Wird jedoch in der *Learning Phase* eine Karte vergessen, wird wieder mit dem er
 
 #### Race Conditions
  
-Bei der Erstellung eines neuen Decks kann es derzeit zu einer Race Condition kommen. Das Erstellen ist nur für Benutzer möglich, die bereits vom Service durch ein Event des User-Service erfasst wurden.
+Bei der Erstellung eines Decks kann es zu Race-Conditions kommen, wenn ein Deck für einen Benutzer erstellt wird, der dem Service noch nicht bekannt ist, im User-Service jedoch bereits existiert.
 
-Eine mögliche Lösung dieses Problems wäre, ein temporäres Deck für einen temporären Nutzer zu erstellen, die beim Empfangen des entsprechenden Events aufgewertet werden.
+Eine mögliche Lösung wäre das Arbeiten mit temporären Daten. Es ließe sich ein temporäres Deck für einen temporären Nutzer erstellen, die beim Empfang des entsprechenden Events aufgewertet würden.
 
 #### Authentifizierung
 
 Eine Authentifizierung ist zum derzeitigen Zeitpunkt nicht implementiert.
 
-#### Immutable Cards
+#### Cards
 
-Eine Karte **muss** bezüglich ihres Typs und Inhalts unveränderlich sein. Wird eine der beiden Eigenschaften verändert, muss eine neue Karte erzeugt werden. Ausgenommen ist der Scheduler.
+**Einzigartigkeit einer Karte**  
+Jede Karte ist einzigartig, besitzt nur **einen** Scheduler und kann in nur **einem** Deck platziert werden.
 
-Durch diese Eigenschaft kann jeder Version einer Karte eine eindeutige ID zugeordnet werden.
+Diese Auslegung begründet sich in der Wahl der Datenbank und leitet sich aus dem gewählten Datenbankschema ab. Durch den Einsatz von MongoDB kann eine Karte vollständig mit ihren Abhängigkeiten in einem einzigen Dokument gespeichert werden. Das Abfragen ist mit einer einzigen Lese-Operation möglich.
+
+Beim Kopieren einer Karte in ein weiteres Deck oder an einen anderen Benutzer kommt es jedoch zu einer Duplizierung, denn bei inhaltlich identischen Karten müsste nur der Scheduler einzigartig sein.
+
+Hier ist deutlich, wie die Wahl der Datenbank Einfluss auf das Datenmodell genommen hat:
+1. In relationalen Datenbanken sind Duplizierungen zu vermeiden, Daten sollten normalisiert werden.
+2. In nicht-relationalen Datenbanken sind Duplizierungen normal führen bei der korrekten Umsetzung zu einer erheblichen Performance-Steigerung.
+
+**Unveränderliche Karten**  
+Eine weitere wichtige Eigenschaft ist die Unveränderlichkeit (immutability) einer Karte. Eine Karte **muss** bezüglich ihres Typs und Inhalts unveränderlich sein. Ausgenommen ist der Scheduler.  
+Wird eine der beiden Eigenschaften verändert, muss eine neue Version der Karte erzeugt werden. Aus dieser Eigenschaft leitet sich ab, dass jeder inhaltlichen Version einer Karte eine einzigartige ID zugeordnet werden kann.
 
 Hierbei handelt es sich um eine Anforderung der Downstream-Services, die zu einer erheblichen Vereinfachung der Kommunikation innerhalb der gesamten Anwendung führen.
 

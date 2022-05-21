@@ -26,6 +26,7 @@ Der User-Service ist für die Verwaltung von Nutzern und allen mit ihren verbund
 
 ### Spezifikationen
 
+- [Context-Map](/ldm/context-map.png)
 - [Logisches Datenmodell](/srscs-doc/ldm/ldm-user-service.png)
 - [OpenAPI](/srscs-doc/api/user-service/openapi/)
 - [AsyncAPI](/srscs-doc/api/user-service/asyncapi/)
@@ -54,8 +55,7 @@ Der User-Service ist für die Verwaltung von Nutzern und allen mit ihren verbund
 
 #### Services
 
-Der Service hat **keine** Abhängigkeiten innerhalb der Anwendung zu anderen Services.  
-[***Link: Context-Map***](/ldm/context-map.png)
+- keine
 
 <br/>
 
