@@ -158,7 +158,7 @@ Downstream-Services wird es ermöglicht, Karten auf ihre ID zu reduzieren. Wird 
 
 #### Topic Struktur
 
-Alle Events zu Decks und Karten befinden sich in einem gemeinsamen Topic, um die Integrität der Reihenfolge zu gewährleisten. Downstream-Services wird es ermöglicht, auf den Einsatz von temporären Daten zu verzichten.
+Alle Events zu Decks und Karten befinden sich in einem gemeinsamen Topic, um die Integrität der Reihenfolge zu gewährleisten. Downstream-Services wird es ermöglicht auf den Einsatz von temporären Daten zu verzichten.
 
 <br/>
 
@@ -174,16 +174,20 @@ Das Datenbankschema wird durch Spring automatisch erstellt.
 
 #### Embedded Entities
 
-Um über den Prozess des Einbettens in MongoDB mehr Kontrolle zu erlangen und zu verhindern, dass Entities vollständig eingebettet werden oder es zu einem Anwendungsseitigen Join kommt, werden referenzierte Entities mit allen notwendigen Informationen als Value-Object eingebettet. Diese Value-Objects haben als Namingpattern das Prefix `Embedded*`.
+Um über den Prozess des Einbettens in MongoDB mehr Kontrolle zu erlangen und zu verhindern, dass Entities vollständig eingebettet werden, oder es zu einem Anwendungsseitigen Join kommt, werden referenzierte Entities mit allen notwendigen Informationen als Value-Object eingebettet. Diese Value-Objects tragen das Prefix `Embedded*`.
 
 #### Embedded Preset in Scheduler
 
-Jeder `Scheduler` bestitzt ein `EmbeddedSchedulerPreset`, eine Kopie des `SchedulerPresets`.
+Jeder `Scheduler` besitzt ein `EmbeddedSchedulerPreset`, eine Kopie des `SchedulerPresets`.
 
-Auf diese Weise kann eine Karte vollständig mit allen notwendigen Informationen mit nur einer Leseoperation geladen werden. Für n Karten ergibt sich ein Aufwand von n Zugriffen.
+Eine Karte bettet daher alle nötigen Abhängigkeiten selbst ein und lässt sich vollständig mit nur einer Lese-Operation laden. Für n Karten ergeben sich n Lese-Zugriffe.
 
-Wird jedoch das `SchedulerPreset` eines Decks geändert, muss für alle aktiven Karten des Decks das `EmbeddedSchedulerPreset` aktualisiert werden. Es ergeben sich n Schreibzugriffe für n Karten.
+Wird jedoch das `SchedulerPreset` eines Decks geändert, muss für **alle** aktiven Karten des Decks das `EmbeddedSchedulerPreset` aktualisiert werden. Es ergeben sich n Schreibzugriffe.
 
-Hierbei handelt es sich um eine Abwägung zwischen aktuellen- und in der Zukunft möglichen Anforderungen. Das aktuelle Datenschema sieht vor, dass Karten individuelle Presets haben werden.
+Bei der Entscheidung, das `SchedulerPreset` zu embedden statt zu referenzieren, handelt es sich um eine Abwägung von Annahmen des Nutzerverhaltens, der Performance der Datenbank im Hinblick auf Lese- und Schreibzugriffe und möglichen zukünftigen Anforderungen.
 
-Sollte diese Anforderung jedoch nicht umgesetzt werden, sollte das `EmbeddedSchedulerPreset` aus dem `Scheduler` ins `Deck` ausgelagert werden oder der `Scheduler` sollte das `SchedulerPreset` direkt referenzieren.
+Es wird von zwei Annahmen ausgegangen:
+1. Scheduler werden zukünftig Deck-unabhängige Presets besitzen können. Zum einen durch die Zuweisung eines inviduellen Presets, zum anderen durch direkte Änderungen des Nutzers.
+2. Es finden deutlich mehr Lese-Zugriffe auf Karten als Schreib-Operationen, durch Änderungen des Presets, statt.
+
+Wird Anforderung 1. nicht umgesetzt, sollte das `SchedulerPreset` im Deck embedded werden.
