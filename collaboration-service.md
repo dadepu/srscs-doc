@@ -26,6 +26,7 @@ Der Collaboration-Service ermöglicht es Nutzern bei der Erstellung eines Decks 
 
 ### Spezifikationen
 
+- [Context Map](/ldm/context-map.png)
 - [Logisches Datenmodell](/srscs-doc/ldm/ldm-collab-service.png)
 - [OpenAPI](/srscs-doc/api/collaboration-service/openapi/)
 
@@ -59,7 +60,7 @@ Der Collaboration-Service ermöglicht es Nutzern bei der Erstellung eines Decks 
 
 ### Containerization
 
-Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine automatisierte Build-Pipeline existiert noch nicht.
+Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet.
 
 **Jib Dokumentation**  
 [https://github.com/GoogleContainerTools/jib](https://github.com/GoogleContainerTools/jib)
@@ -74,7 +75,7 @@ Das Docker-Image wird lokal über Jib erzeugt und auf Docker-Hub gehostet. Eine 
 
 ### Fachliche Service-Beschreibung
 
-Der Collaboration-Service erlaubt es Nutzern bei der Erstellung eines Decks zu kollaborieren. Durch einen Benutzer erstellte Karten werden allen Teilnehmern zugänglich.
+Der Collaboration-Service erlaubt es Nutzern bei der Erstellung eines Decks zu kollaborieren. Dabei werden durch einen Benutzer erstellte Karten allen Teilnehmern zugänglich.
 
 Um eine Kollaboration zu starten, läd ein Benutzer andere Teilnehmer ein. Beim Annehmen der Einladung wird für diesen automatisch ein neues Deck erstellt. Alle in diesem Deck vorgenommenen Änderungen wirken sich auf die anderen Teilnehmern aus. Davon ausgenommen ist das Löschen und Reviewen einer Karte.
 
@@ -89,7 +90,7 @@ Verlässt ein Nutzer eine Kollaboration, behält er den aktuellen Zustand des ge
 #### Race Conditions
 
 **User**  
-Theoretisch kann es bei der Erstellung oder Einladung zu einer Kollaboration zu einer Race Condition kommen, wenn ein User referenziert wird, der dem Service noch nicht bekannt ist, bereits aber existiert.
+Theoretisch kann es bei der Erstellung oder Einladung einer Kollaboration zu einer Race Condition kommen, wenn ein User referenziert wird, der dem Service noch nicht bekannt ist.
 
 **Decks / Karten**  
 Es wird vorausgesetzt, dass alle Events des Deck-Service in strikter Reihenfolge veröffentlicht werden.
@@ -110,7 +111,7 @@ Wird durch einen Benutzer in einem Kollaborations-Deck eine neue Karte erstellt,
 
 Ändert ein beliebiger Teilnehmer diese zuvor erstellte Karte, muss diese Änderung an die anderen Teilnehmer weitergegeben werden. Um die entsprechenden Karten mit der neuen Version überschreiben zu können, müssen deren IDs jedoch bekannt sein.
 
-Diese Zuordnung wird vorgenommen durch die `CollaborationCard`, die die jeweiligen Versionen und die korrelierenden Karten der Benutzer zuordnet.
+Diese Zuordnung findet durch die `CollaborationCard` statt, die die jeweiligen Versionen und die korrelierenden Karten der Benutzer zuordnet.
 
 <br/>
 
@@ -126,7 +127,7 @@ Das Datenbankschema wird nicht automatisch erstellt, sondern muss über das `col
 
 #### Query First
 
-Das Datenbankschema ergibt sich aus einem Query First Ansatz. Für jeden Geschäftsprozess innerhalb des Service wird isoliert betrachtet, welche Datenbank Queries ausgeführt werden. Die Summe dieser Anfragen ergibt das Datenbankschema.
+Das Datenbankschema ergibt sich aus einem Query First Ansatz. Für jeden Geschäftsprozess innerhalb des Service wird isoliert betrachtet, welche Datenbank Anfragen gestellt werden. Die Summe dieser Anfragen ergibt das Datenbankschema.
 
 Diese Technik ist für Key-Value Datenbanken ohne Indexes das übliche Vorgehen. Für eine genauere Beschreibung wird auf die Dokumentation von Cassandra verwiesen.
 [https://cassandra.apache.org/doc/latest/cassandra/data_modeling/index.html](https://cassandra.apache.org/doc/latest/cassandra/data_modeling/index.html)
@@ -276,6 +277,11 @@ CREATE TABLE collaborationcard_by_cardid (
 
 #### Persönliche Bemerkung
 
-Der Einsatz von Cassandra stellt sich in der nachträglichen Betrachtung als wenig sinnvoll heraus. Es wurde ursprünglich von einem zu simplen Datenbankschema ausgegangen und die Anzahl der Prozesse wurde erheblich unterschätzt. Auch wurde fälschlicherweise angenommen, dass es zu deutlich mehr Schreib- als Leseoperationen kommen würde. Im realen Betrieb ist jedoch das genaue Gegenteil der Fall.
+Der Einsatz von Cassandra für den konkreten Anwendungsfall hat sich im Nachgang als wenig sinnvoll heraus gestellt. Ursprünglich wurde von einem zu simplen Datenbankschema ausgegangen und der Annahme, dass es zu mehr Schreib- als Lesezugriffen kommen würde.
 
-Ebenfalls wird die Flexibilität gegenüber neuen Anforderungen massiv eingeschränkt, weil es potentiell zu einer Vielzahl von Änderungen am Datenbank Schema kommen kann. Sollten neue Anforderungen erwachsen, wird deshalb ein Refactoring auf MongoDB in Erwägung gezogen.
+Beides erwies sich jedoch als falsch. Ergeben haben sich eine Vielzahl von Relationen und vielseitigen Abfragen auf ein verhältnismäßig simples Datenmodell. 
+
+Daraus ergeben sich die folgenden Nachteile:
+1. **Die Entwicklungszeit ist deutlich höher:** Durch den Query First Ansatz mussten viele Aspekte im Vorfeld beachtet und genau modelliert werden. Verschiedene Anforderungen wurden jedoch erst während der Entwicklung bekannt und führten zu mehreren Refactoring-Sessions. Darüber hinaus ist die Integration mit Cassandra aufwändiger. Das Mapping jeder Tabelle muss selbst vorgenommen werden, Repositories müssen selbst implementiert werden. 
+3. **Debugging ist sehr komplex:** Zum einen müssen die verschiedenen Tabellen synchron gehalten werden, weil sie das selbe Domain-Model aus unterschiedlichen Blickwinkeln wiederspiegeln. Zum anderen baut das Datenbankschema zur Laufzeit das Domain-Model partiell auf - nie vollständig. Fehler zur Laufzeit können eine Vielzahl von Ursachen haben und lassen sich nicht ohne weiteres auf das Datenbankschema zurückführen. Beispielsweise kann ein Fehler beim Aktualisieren der Tabellen zu einer Inkonsistenz der Daten führen, die an ganz anderer Stelle bemerkt wird. Beispielsweise in einem anderen Service.
+4. **Weitere Anforderungen umzusetzen ist problematisch:** Durch den Query First Ansatz und das rigide Datenbankschema gibt Cassandra vor, welche Zugriffe möglich sind. So lassen sich vermeintlich simple Anforderungen wie das Ändern des Benutzernamens nicht ohne ein massives Refactoring umsetzen.
