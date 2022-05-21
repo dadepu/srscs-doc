@@ -140,21 +140,21 @@ Eine Authentifizierung ist zum derzeitigen Zeitpunkt nicht implementiert.
 **Einzigartigkeit einer Karte**  
 Jede Karte ist einzigartig, besitzt nur **einen** Scheduler und kann in nur **einem** Deck platziert werden.
 
-Diese Auslegung begründet sich in der Wahl der Datenbank und leitet sich aus dem gewählten Datenbankschema ab. Durch den Einsatz von MongoDB kann eine Karte vollständig mit ihren Abhängigkeiten in einem einzigen Dokument gespeichert werden. Das Abfragen ist mit einer einzigen Lese-Operation möglich.
+Diese Auslegung begründet sich in der Wahl der Datenbank und leitet sich aus dem gewählten Datenbankschema ab. Durch den Einsatz von MongoDB kann eine Karte vollständig mit ihren Abhängigkeiten in einem Dokument gespeichert werden. Das Abfragen ist mit einer einzigen Lese-Operation möglich.
 
 Beim Kopieren einer Karte in ein weiteres Deck oder an einen anderen Benutzer kommt es jedoch zu einer Duplizierung, denn bei inhaltlich identischen Karten müsste nur der Scheduler einzigartig sein.
 
-Hier ist deutlich, wie die Wahl der Datenbank Einfluss auf das Datenmodell genommen hat:
-1. In relationalen Datenbanken sind Duplizierungen zu vermeiden, Daten sollten normalisiert werden.
-2. In nicht-relationalen Datenbanken sind Duplizierungen normal führen bei der korrekten Umsetzung zu einer erheblichen Performance-Steigerung.
+Hier wird deutlich, wie die Wahl der Datenbank Einfluss auf das Datenmodell genommen hat:
+- In relationalen Datenbanken sind Duplizierungen zu vermeiden, Daten sollten normalisiert werden.
+- In nicht-relationalen Datenbanken sind Duplizierungen normal führen bei korrekter Umsetzung zu einer erheblichen Performance-Steigerung.
 
 **Unveränderliche Karten**  
-Eine weitere wichtige Eigenschaft ist die Unveränderlichkeit (immutability) einer Karte. Eine Karte **muss** bezüglich ihres Typs und Inhalts unveränderlich sein. Ausgenommen ist der Scheduler.  
+Eine weitere wichtige Eigenschaft ist die Unveränderlichkeit (immutability) einer Karte. Eine Karte **muss** bezüglich ihres Typs und Inhalts unveränderlich sein. Ausgenommen ist ihr Scheduler.  
 Wird eine der beiden Eigenschaften verändert, muss eine neue Version der Karte erzeugt werden. Aus dieser Eigenschaft leitet sich ab, dass jeder inhaltlichen Version einer Karte eine einzigartige ID zugeordnet werden kann.
 
 Hierbei handelt es sich um eine Anforderung der Downstream-Services, die zu einer erheblichen Vereinfachung der Kommunikation innerhalb der gesamten Anwendung führen.
 
-Downstream-Services wird es ermöglicht, Karten auf ihre ID zu reduzieren. Wird der Deck-Service angewiesen eine Karte zu kopieren, muss für diesen Vorgang der Inhalt der Karte nicht bekannt sein. Es reicht die zu kopierende Karte zu referenzieren. Der Inhalt einer Karte wird daher zu einem Konzept, das nur für den Deck-Service relevant ist.
+Downstream-Services wird es ermöglicht Karten auf ihre ID zu reduzieren. Wird der Deck-Service angewiesen eine Karte zu kopieren, muss für diesen Vorgang der Inhalt der Karte nicht bekannt sein. Es reicht die zu kopierende Karte zu referenzieren. Der Inhalt einer Karte wird daher zu einem Konzept, das nur für den Deck-Service relevant ist.
 
 #### Topic Struktur
 
